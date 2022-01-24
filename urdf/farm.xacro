@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<robot name="farm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+<xacro:arg name="floating" default="true"/>
+<xacro:arg name="height" default="0"/>
+<xacro:arg name="base_color" default="1 1 1"/>
+
+<xacro:arg name="x" default="0"/>
+<xacro:arg name="y" default="0"/>
+<xacro:arg name="yaw" default="0"/>
+
+<xacro:arg name="nx" default="1"/>
+<xacro:arg name="ny" default="1"/>
+<xacro:arg name="scale" default="200"/>
+<xacro:arg name="velocity" default="-15.0"/>
+
+<xacro:include filename="turbine.xacro"/>
+
+<xacro:property name="x0" value="$(arg x)"/>
+<xacro:property name="y0" value="$(arg y)"/>
+<xacro:property name="scale" value="$(arg scale)"/>
+
+<xacro:macro name="col" params="nx ny">
+    
+    <xacro:if value="${ny}">            
+    <xacro:turbine         
+        name="turbine_${nx}_${ny}"
+        x="${x0 + (nx-1 + .5*(1-ny%2))*scale}"
+        y="${y0 + (ny-1)*scale}"
+        yaw="$(arg yaw)"
+        floating="$(arg floating)"
+        height="$(arg height)"
+        base_color="$(arg base_color)"
+        velocity="$(arg velocity)"/>
+        
+    <xacro:col nx="${nx}" ny="${ny-1}"/>        
+    </xacro:if>
+    
+</xacro:macro>
+
+<xacro:macro name="row" params="nx ny">    
+    <xacro:if value="${nx}">        
+        <xacro:col nx="${nx}" ny="${ny}"/>
+        <xacro:row nx="${nx-1}" ny="${ny}"/>
+    </xacro:if>
+</xacro:macro>
+
+<link name="world"/>
+
+<gazebo>
+    <plugin filename="libignition-gazebo-joint-state-publisher-system.so" name="ignition::gazebo::systems::JointStatePublisher"/>    
+</gazebo>
+
+<xacro:row nx="$(arg nx)" ny="$(arg ny)"/>
+
+</robot>

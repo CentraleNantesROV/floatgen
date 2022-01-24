@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+<robot name="turbine" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    
+<xacro:macro name="turbine" params="name x y yaw floating height base_color velocity">
+
+<xacro:macro name="inertial_block">
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+</xacro:macro>
+
+<joint name="${name}_world" type="fixed">
+    <parent link="world"/>
+    <child link="${name}/base_link"/>
+    <origin xyz="${x} ${y} 0" rpy="0 0 ${yaw}"/>
+</joint>  
+
+<xacro:if value="${floating}">
+    
+    <link name="${name}/base_link"> 
+    <xacro:inertial_block/>
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/base_air.dae"/>
+      </geometry>
+    </visual> 
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/base_water.dae"/>
+      </geometry>
+    </visual>         
+    
+    <collision>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/base_air.stl"/>
+      </geometry>
+    </collision> 
+    <collision>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/base_water.stl"/>
+      </geometry>
+    </collision>    
+    </link>    
+    
+    <joint name="${name}_floating" type="fixed">
+        <parent link="${name}/base_link"/>
+        <child link="${name}/pole"/>
+        <origin xyz="-13.5 0 0"/>
+    </joint>
+</xacro:if>
+
+<xacro:unless value="${floating}">
+            
+    <material name="base">
+        <color rgba="${base_color} 1"/>
+    </material>
+            
+    <link name="${name}/base_link"> 
+        <xacro:inertial_block/>
+        <visual>
+            <origin xyz="0 0 ${height/2}"/>
+        <geometry>
+            <cylinder radius=".45" length="${height}"/>
+        </geometry>
+        <material name="base"/>
+        </visual>
+    </link>
+    <joint name="${name}_base" type="fixed">
+        <parent link="${name}/base_link"/>
+        <child link="${name}/pole"/>
+        <origin xyz="0 0 ${height}"/>
+    </joint>     
+</xacro:unless>
+
+<link name="${name}/pole"> 
+    <xacro:inertial_block/>
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/pole.dae"  scale="1 1 1"/>
+      </geometry>
+    </visual> 
+  </link>
+  
+  <joint name="${name}" type="continuous">
+    <parent link="${name}/pole"/>
+    <child link="${name}/blades"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.71 0.0 16.864" rpy="${x+y} 0 0"/>
+  </joint>  
+    
+  <link name="${name}/blades">  
+    <xacro:inertial_block/>
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/blades.dae"  scale="1 1 1"/>
+      </geometry>
+    </visual> 
+  </link>
+  
+  <gazebo>
+    <plugin
+        filename="libignition-gazebo-joint-controller-system.so"
+        name="ignition::gazebo::systems::JointController">
+        <joint_name>${name}</joint_name>
+        <initial_velocity>${velocity}</initial_velocity>
+      </plugin>
+  </gazebo>
+  
+</xacro:macro>
+</robot>
