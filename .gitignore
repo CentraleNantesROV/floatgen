@@ -66,5 +66,5 @@ Thumbs.db
 *.vrb
 *.synctex.gz*
 *.tex.backup
-
+.*
 !.gitignore

@@ -5,4 +5,7 @@ find_package(ament_cmake REQUIRED)
 
 install(DIRECTORY meshes urdf launch DESTINATION share/${PROJECT_NAME})
 
+install(PROGRAMS launch/world.sh
+  DESTINATION lib/${PROJECT_NAME})
+
 ament_package()

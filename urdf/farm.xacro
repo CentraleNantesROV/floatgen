@@ -12,7 +12,7 @@
 <xacro:arg name="nx" default="1"/>
 <xacro:arg name="ny" default="1"/>
 <xacro:arg name="scale" default="200"/>
-<xacro:arg name="velocity" default="-15.0"/>
+<xacro:arg name="velocity" default="-0.1"/>
 
 <xacro:include filename="turbine.xacro"/>
 
