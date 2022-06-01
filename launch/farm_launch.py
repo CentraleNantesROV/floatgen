@@ -1,4 +1,4 @@
-from simple_launch import SimpleLauncher, IgnitionBridge
+from simple_launch import SimpleLauncher, GazeboBridge
 import sys
 
 def generate_launch_description():
@@ -25,11 +25,11 @@ def generate_launch_description():
         sl.node('robot_state_publisher', 'robot_state_publisher', parameters={'robot_description': description})    
         
         # spawn in gazebo
-        sl.spawn_ign_model(ns, only_new = False)
+        sl.spawn_gz_model(ns, only_new = False)
         
         # joint_state bridge
-        ign_js_topic = sl.name_join(IgnitionBridge.model_prefix(ns),'/joint_state')
-        js_bridge = IgnitionBridge(ign_js_topic, 'joint_states', 'sensor_msgs/JointState', IgnitionBridge.ign2ros)        
+        gz_js_topic = sl.name_join(GazeboBridge.model_prefix(ns),'/joint_state')
+        js_bridge = GazeboBridge(gz_js_topic, 'joint_states', 'sensor_msgs/JointState', GazeboBridge.gz2ros)        
         sl.create_ign_bridge(js_bridge, 'turbine_bridge')
     
     return sl.launch_description()
