@@ -30,6 +30,6 @@ def generate_launch_description():
         # joint_state bridge
         gz_js_topic = sl.name_join(GazeboBridge.model_prefix(ns),'/joint_state')
         js_bridge = GazeboBridge(gz_js_topic, 'joint_states', 'sensor_msgs/JointState', GazeboBridge.gz2ros)        
-        sl.create_ign_bridge(js_bridge, 'turbine_bridge')
+        sl.create_gz_bridge(js_bridge, 'turbine_bridge')
     
     return sl.launch_description()
