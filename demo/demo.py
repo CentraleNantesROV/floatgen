@@ -36,10 +36,11 @@ def mat2Rot(R):
     except:
         return Rotation.from_matrix(R)
 
-def euler2mat(r, p, y):  
-    return Rot2mat(Rotation.from_euler('xyz',(r,p,y)))    
+def euler2mat(r, p, y):
+    return Rot2mat(Rotation.from_euler('xyz',(r,p,y)))
 def axangle2mat(r):
     return Rot2mat(Rotation.from_rotvec(r))
+
 
 def mat2axangle(R):
     return mat2Rot(R).as_rotvec()
@@ -121,8 +122,6 @@ class Demo(Node):
         print(f'y: {self.tr.transform.translation.y}')
 
         mat2quat(euler2mat(0, 0, 0), self.tr.transform.rotation)
-
-
 
 
         self.br.sendTransform(self.tr)

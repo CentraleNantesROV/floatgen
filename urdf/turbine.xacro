@@ -34,12 +34,12 @@
     
     <collision>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/base_air.stl"/>
+        <mesh filename="file://$(find floatgen)/meshes/base_air.dae"/>
       </geometry>
     </collision> 
     <collision>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/base_water.stl"/>
+        <mesh filename="file://$(find floatgen)/meshes/base_water.dae"/>
       </geometry>
     </collision>    
     </link>    

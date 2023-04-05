@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<robot name="seabed" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+<xacro:arg name="depth" default="-40"/>
+<xacro:arg name="seabed" default="seabed"/>
+<xacro:arg name="size" default="100"/>
+
+<xacro:property name="scale" value="$(arg size)"/>
+
+<link name="world"/>
+
+
+<link name="seabed">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find floatgen)/meshes/$(arg seabed).ive"
+              scale="${scale} ${scale} 1"/>
+      </geometry>
+    </visual>
+</link>
+
+<joint name="seabed" type="fixed">
+    <parent link="world"/>
+    <child link="seabed"/>
+    <origin xyz="0 0 $(arg depth)"/>
+</joint>
+
+</robot>
