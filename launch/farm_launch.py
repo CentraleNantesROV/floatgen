@@ -10,7 +10,7 @@ def generate_launch_description():
     
     sl.declare_arg('x', default_value = 0., description = 'X-position of first turbine')
     sl.declare_arg('y', default_value = 0., description = 'Y-position of first turbine')
-    sl.declare_arg('yaw', default_value = .7, description = 'Yaw of turbines')
+    sl.declare_arg('yaw', default_value = 0., description = 'Yaw of turbines')
     sl.declare_arg('scale', default_value = 200., description = 'Distances of turbines')
     sl.declare_arg('velocity', default_value = -2., description = 'Velocity of turbines')
 
