@@ -1,7 +1,0 @@
-/farm/joint_states:
-    type: sensor_msgs/JointState
-    name: ['turbine_1_1']
-    angle:
-        to: position[0]
-        min: -1.
-        max: 1.
