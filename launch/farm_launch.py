@@ -13,22 +13,23 @@ def generate_launch_description():
     sl.declare_arg('yaw', default_value = 0., description = 'Yaw of turbines')
     sl.declare_arg('scale', default_value = 200., description = 'Distances of turbines')
     sl.declare_arg('velocity', default_value = -2., description = 'Velocity of turbines')
+
+    sl.gz_launch(sl.find('floatgen', 'floatgen_world.sdf'), '-r -s')
     
     ns = 'farm'
                 
     with sl.group(ns=ns):
-
         # run RSP with given parameters
         sl.robot_state_publisher('floatgen', 'farm.xacro',
                                            xacro_args=sl.arg_map('x', 'y', 'yaw', 'nx', 'ny', 'scale', 'velocity'))
         
         # spawn in Gazebo
 
-        sl.spawn_gz_model(ns, only_new = False)
+        sl.spawn_gz_model(ns)
 
         # joint_state bridge
         gz_js_topic = GazeboBridge.model_prefix(ns)+'/joint_state'
         js_bridge = GazeboBridge(gz_js_topic, 'joint_states', 'sensor_msgs/JointState', GazeboBridge.gz2ros)
-        sl.create_gz_bridge(js_bridge, 'turbine_bridge')
+        sl.create_gz_bridge([GazeboBridge.clock(), js_bridge], 'turbine_bridge')
 
     return sl.launch_description()
