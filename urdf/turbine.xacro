@@ -23,23 +23,23 @@
     <xacro:inertial_block/>
     <visual>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/base_air.dae"/>
+        <mesh filename="package://floatgen/meshes/base_air.dae"/>
       </geometry>
     </visual> 
     <visual>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/base_water.dae"/>
+        <mesh filename="package://floatgen/meshes/base_water.dae"/>
       </geometry>
     </visual>         
     
     <collision>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/base_air.dae"/>
+        <mesh filename="package://floatgen/meshes/base_air.dae"/>
       </geometry>
     </collision> 
     <collision>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/base_water.dae"/>
+        <mesh filename="package://floatgen/meshes/base_water.dae"/>
       </geometry>
     </collision>    
     </link>    
@@ -78,7 +78,7 @@
     <xacro:inertial_block/>
     <visual>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/pole.dae"  scale="1 1 1"/>
+        <mesh filename="package://floatgen/meshes/pole.dae"  scale="1 1 1"/>
       </geometry>
     </visual> 
   </link>
@@ -94,7 +94,7 @@
     <xacro:inertial_block/>
     <visual>
       <geometry>
-        <mesh filename="file://$(find floatgen)/meshes/blades.dae"  scale="1 1 1"/>
+        <mesh filename="package://floatgen/meshes/blades.dae"  scale="1 1 1"/>
       </geometry>
     </visual> 
   </link>
