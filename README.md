@@ -1,20 +1,13 @@
 # Simulation of a world with floating wind turbines
 
-Uses Ignition and [simple_launch](https://github.com/oKermorgant/simple_launch).
+Uses Gazebo (or Ignition) and [simple_launch](https://github.com/oKermorgant/simple_launch).
 
 
+## Spawning Ignition with a wind farm
 
-## Spawning Ignition
+The following command will spawn an empty world with buoyancy plugin, and a wind farm with joint state publisher:
 
-The following command will spawn an empty world with buoyancy plugin:
-
-`ros2 launch floatgen floatgen_world_launch.py` 
-
-## Spawning a wind farm (after Ignition)
-
-The following command will spawn the wind farm with joint state publisher:
-
-`ros2 launch floatgen floatgen_farm_launch.py`
+`ros2 launch floatgen floatgen_world_launch.py`
 
 parameters:
 
@@ -23,9 +16,3 @@ parameters:
 - `scale`: distance between two turbines (default 200)
 - `yaw`: orientation of the farm (default 0)
 - `velocity`: angular velocity of the turbines (default -15)
-
-## Running both in a single terminal
-
-This command will run Ignition, then spawn the farm with the given arguments:
-
-`ros2 run floatgen world.sh <args>` 
